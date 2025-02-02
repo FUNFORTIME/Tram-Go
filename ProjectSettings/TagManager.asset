@@ -14,10 +14,10 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - Warn
+  - Stop
+  - SpeedLimit
+  - Signal
   - 
   - 
   - 
@@ -46,6 +46,15 @@ TagManager:
     locked: 0
   - name: Tram
     uniqueID: 3723575181
+    locked: 0
+  - name: Pedestrain
+    uniqueID: 2207085523
+    locked: 0
+  - name: Sign
+    uniqueID: 3445010689
+    locked: 0
+  - name: FrontGround
+    uniqueID: 2552595601
     locked: 0
   - name: UI
     uniqueID: 1688536977

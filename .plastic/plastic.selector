@@ -1,0 +1,4 @@
+repository "Tram Go@tj_minemahiro@cloud.cn"
+  path "/"
+    br "/main"
+    co "/main"

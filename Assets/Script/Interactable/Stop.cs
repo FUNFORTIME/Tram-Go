@@ -20,7 +20,9 @@ public class Stop : SignParent
 
     private void Awake()
     {
-        //附加初始发车时间的代码位于TimeTable中
+        //pass
+        arrivalTime= new VirtualTime();
+        departureTime= new VirtualTime();
     }
 
     private void Update()
@@ -39,6 +41,7 @@ public class Stop : SignParent
 
         transform.parent.name = stopName;
         stopText.text = stopName;
+        
 
         departureTime = arrivalTime + new VirtualTime(0, 0, stoppingSecond);
     }

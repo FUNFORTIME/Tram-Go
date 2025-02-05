@@ -49,11 +49,11 @@ public class XPSystem : MonoBehaviour ,ISaveManager
         string _delayDescription = "Delay:" + (int)(_delay) + "s\tBonus:" + _delayXP + "XP";
 
         ChangeXP(_delayXP + _deviationXP, "Stopped at "+_stopName+"\n"+ _deviationDescription+_delayDescription);
-    }//Í£¿¿Õ¾
+    }//Í£ï¿½ï¿½Õ¾
     public void StopMissed(string _stopName)
     {
         ChangeXP(-100,"Missed Stop:"+_stopName);
-    }//´í¹ýÍ£¿¿Õ¾
+    }//ï¿½ï¿½ï¿½Í£ï¿½ï¿½Õ¾
     public void StopPassed(string _stopName, float _delay,float _maxAcceptDelay = 20f)
     {
         int _delayXP = LerpXPCalculation(delayMinXP,delayMaxXP, _delay,_maxAcceptDelay);
@@ -61,7 +61,7 @@ public class XPSystem : MonoBehaviour ,ISaveManager
         string _delayDescription = "Delay:" + (int)(_delay) + "s\tBonus:" + _delayXP + "XP";
 
         ChangeXP(_delayXP, "Passing " +_stopName+"\n"  +_delayDescription);
-    }//Í¨¹ýÕ¾
+    }//Í¨ï¿½ï¿½Õ¾
     public void Depart(string _stopName, float _delay, float _maxAcceptDelay = 20f)
     {
         int _delayXP = LerpXPCalculation(delayMinXP, delayMaxXP, _delay, _maxAcceptDelay);
@@ -79,16 +79,16 @@ public class XPSystem : MonoBehaviour ,ISaveManager
     public void EB()
     {
         ChangeXP(-50, "Emergency Brake Pulled");
-    }//À­ÏÂEB
+    }//ï¿½ï¿½ï¿½ï¿½EB
     public void RunWithDoorOpen()
     {
         ChangeXP(-100, "Run with doors open");
-    }//Î´¹ØÃÅÆô¶¯
+    }//Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     public void RunThroughRedSignal()
     {
         ChangeXP(-200, "Run through red signal");
-    }//´³¹ýºìµÆ
+    }//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     public void ExceedSpeedLimit(int _speed,int _speedLimit)
     {
@@ -99,7 +99,7 @@ public class XPSystem : MonoBehaviour ,ISaveManager
     {
         if(descriptionCoroutine!=null) StopCoroutine(descriptionCoroutine);
         if(updateXPCoroutine!=null) StopCoroutine(updateXPCoroutine);
-        //ÇåÀíÏÖÓÐÐ­³ÌÒÔ·À»ìÂÒ Í¬Ê±Ö»ÄÜÏÔÊ¾Ò»¸ö
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð­ï¿½ï¿½ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ Í¬Ê±Ö»ï¿½ï¿½ï¿½ï¿½Ê¾Ò»ï¿½ï¿½
 
         XP += _XP;
         Color _color = XP>=0? greenColor : redColor;

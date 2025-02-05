@@ -97,31 +97,39 @@ public class Tram : MonoBehaviour
 
     private void InputControl()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-            if (Mathf.Abs(speed) < 0.1f || doorOpen)
+        if (!Manager.instance.pause.pause)
+        {
+            if (Input.GetKeyDown(KeyCode.O))
+                if (Mathf.Abs(speed) < 0.1f || doorOpen)
+                {
+                    StartCoroutine(doorController.ChangeDoorState(!doorOpen));
+                }
+            //DoorControl
+
+            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+                handleController.ChangeHandle(-1);
+            if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
+                handleController.ChangeHandle(1);
+            //HandleControl
+
+            if (Input.GetKeyDown(KeyCode.R) && Mathf.Abs(speed) < 0.1f)
             {
-                StartCoroutine(doorController.ChangeDoorState(!doorOpen));
+                reverse = !reverse;
+                Manager.instance.reverseHandleController.SetReverse(reverse);
             }
-        //DoorControl
+            //Reverse
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.RightArrow))
-            handleController.ChangeHandle(-1);
-        if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.LeftArrow))
-            handleController.ChangeHandle(1);
-        //HandleControl
-
-        if (Input.GetKeyDown(KeyCode.R) && Mathf.Abs(speed) < 0.1f)
-        {
-            reverse = !reverse;
-            Manager.instance.reverseHandleController.SetReverse(reverse);
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                timeTable.gameObject.SetActive(!timeTable.gameObject.activeSelf);
+            }
+            //Show/Hide Timetable
         }
-        //Reverse
 
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            timeTable.gameObject.SetActive(!timeTable.gameObject.activeSelf);
-        }
-        //Show/Hide Timetable
+            Manager.instance.pause.ChangePause();
+        }//Pause
     }
 
     public void GenerateUnboardList(Station _station)

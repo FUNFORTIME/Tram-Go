@@ -11,6 +11,7 @@ public class Manager : MonoBehaviour
     public XPSystem XPSystem;
     public DescriptionDisplay descriptionController;
     public ReverseHandleDisplay reverseHandleController;
+    public Pause pause;
 
     private void Awake()
     {

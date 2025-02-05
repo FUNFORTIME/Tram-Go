@@ -367,11 +367,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2079807027875371922, guid: 35497037b4d30844a9e29571b69edb92, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2079807027875371922, guid: 35497037b4d30844a9e29571b69edb92, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2079807027875371922, guid: 35497037b4d30844a9e29571b69edb92, type: 3}
       propertyPath: m_SizeDelta.x

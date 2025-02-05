@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class SaveManager:MonoBehaviour
 {
@@ -9,19 +10,16 @@ public class SaveManager:MonoBehaviour
 
     [SerializeField] private string fileName;
 
+    public GameData gameData;
 
-    private GameData gameData;
-
-    private List<ISaveManager> saveManagers;
+    //private List<ISaveManager> saveManagers;
 
     private FileDataHandler dataHandler;
 
     private void Start()
     {
-        dataHandler=new FileDataHandler(Application.persistentDataPath,fileName);
-        saveManagers=FindAllSaveManage();
+        //saveManagers=FindAllSaveManage();
 
-        LoadGame();
     }
 
     private void Awake()
@@ -30,6 +28,9 @@ public class SaveManager:MonoBehaviour
             Destroy(instance.gameObject);
         else
             instance = this;
+
+        dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        LoadGame();
     }
 
     public void LoadGame()
@@ -39,20 +40,25 @@ public class SaveManager:MonoBehaviour
         if(gameData == null)
             gameData = new GameData();
 
-        foreach (ISaveManager saveManager in saveManagers)
+/*        foreach (ISaveManager saveManager in saveManagers)
         {
             saveManager.LoadData(gameData);
         }
-    }
+*/    }
 
     public void SaveGame()
     {
-        foreach (ISaveManager saveManager in saveManagers)
+/*        foreach (ISaveManager saveManager in saveManagers)
         {
             saveManager.SaveData(ref gameData);
         }
-
+*/
         dataHandler.Save(gameData);
+    }
+
+    private void OnDestroy()
+    {
+        SaveGame();
     }
 
     private void OnApplicationQuit()
@@ -60,10 +66,10 @@ public class SaveManager:MonoBehaviour
         SaveGame();
     }
 
-    private List<ISaveManager> FindAllSaveManage()
+/*    private List<ISaveManager> FindAllSaveManage()
     {
         IEnumerable<ISaveManager> saveManagers=FindObjectsOfType<MonoBehaviour>().OfType<ISaveManager>();
 
         return new List<ISaveManager>(saveManagers);
     }
-}
+*/}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 [Serializable]
@@ -79,6 +80,8 @@ public struct VirtualTime
 public class GameData
 {
     public int xp;
+    public Dictionary<RouteDisplay,bool> routeUnlock;
+    public Dictionary<RouteDisplay,List<LevelInfo>> levelInfos;
 
     public GameData()
     {

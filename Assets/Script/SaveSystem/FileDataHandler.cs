@@ -33,7 +33,7 @@ public class FileDataHandler
                 }
             }
         }
-        catch (Exception e)
+        catch
         {
             
         }
@@ -61,7 +61,7 @@ public class FileDataHandler
 
                 loadData = JsonUtility.FromJson<GameData>(dataToLoad);
             }
-            catch(Exception e)
+            catch
             {
 
             }

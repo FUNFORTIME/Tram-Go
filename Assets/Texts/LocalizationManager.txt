@@ -1,0 +1,17 @@
+Localization_Manager_Source
+>GamePause
+GamePauseNote
+Resume
+Exit
+>Stops
+Stop
+Arr
+Dep
+BeiJing
+Tokyo
+Akihabara
+Ueno
+Kanda
+Ebisu
+Shinagawa
+Shinjuku

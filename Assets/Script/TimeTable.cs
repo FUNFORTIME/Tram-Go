@@ -13,7 +13,7 @@ public class TimeTable : MonoBehaviour
         table.Columns = 3;
 
         int _layerMask = 1 << (int)SignType.stop;
-        //LayerMask以二进制数的各数位上0/1表示该序号layer启用与否，因此需要转换
+        //LayerMask
         RaycastHit2D[] _hitArray = 
             Physics2D.RaycastAll(Manager.instance.frontCheck.position, Vector2.right,Mathf.Infinity, _layerMask);
 
@@ -23,9 +23,9 @@ public class TimeTable : MonoBehaviour
             _stopInfo.Add(_hit.collider.gameObject.GetComponent<Stop>());
         }
 
-        table.GetCell(0,0).text = "Stop";
-        table.GetCell(0,1).text = "Arr.";
-        table.GetCell(0,2).text = "Dep.";
+        //table.GetCell(0,0).text = "Stop";
+        //table.GetCell(0,1).text = "Arr.";
+        //table.GetCell(0,2).text = "Dep.";
         table.Rows = _stopInfo.Count + 1;
 
         for (int i = 0; i < _stopInfo.Count; i++)

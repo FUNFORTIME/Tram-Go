@@ -1,0 +1,8 @@
+ContextMenu CheckList:
+CreateDistanceSign
+CreateHandle
+
+Variable CheckList:
+前Cabin车钩连接后Cabin
+将Cabin分配至Tram
+禁用末尾Cabin车钩组件

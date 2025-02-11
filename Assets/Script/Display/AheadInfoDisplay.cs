@@ -15,11 +15,12 @@ public class AheadInfoDisplay : MonoBehaviour
     [SerializeField] private GameObject stopInfoDisplay;
     [SerializeField] private GameObject speedLimitDisplay;
     [SerializeField]private GameObject signalInfoDisplay;
+    [SerializeField]private GameObject TerminusDisplay;
 
     [SerializeField] private TextMeshProUGUI textDistance;
 
     private Image background;
-    private Transform tf;
+    public Transform tf;
     private Transform frontCheck;
 
     void Start()
@@ -53,6 +54,7 @@ public class AheadInfoDisplay : MonoBehaviour
         stopInfoDisplay.SetActive(false);
         speedLimitDisplay.SetActive(false);
         signalInfoDisplay.SetActive(false);
+        TerminusDisplay.SetActive(false);
 
         if (info == null)
             return;
@@ -65,19 +67,23 @@ public class AheadInfoDisplay : MonoBehaviour
             case SignType.stop:
                 stopInfoDisplay.SetActive(true);
                 Stop _stopinfo = info.GetComponent<Stop>();
-                stopInfoDisplay.GetComponent<StopInfoDisplay>().SetText(_stopinfo.stopName);
+                stopInfoDisplay.GetComponent<StopInfoDisplay>().SetText(_stopinfo.GetLocalizedText());
                 break;
 
             case SignType.speedLimit:
                 speedLimitDisplay.SetActive(true);
                 SpeedLimit _speedLimit = info.GetComponent<SpeedLimit>();
-                speedLimitDisplay.GetComponent<SpeedLimitDisplay>().SetText(_speedLimit.speedLimit);
+                speedLimitDisplay.GetComponent<SpeedLimitDisplay>().SetText(_speedLimit.speedLimit,_speedLimit.conformed);
                 break;
 
             case SignType.signal:
                 signalInfoDisplay.SetActive(true);
                 Signal _signal = info.GetComponent<Signal>();
                 signalInfoDisplay.GetComponent<SignalInfoDisplay>().SetSignal(_signal.signalColor);
+                break;
+
+            case SignType.terminus:
+                TerminusDisplay.SetActive(true);
                 break;
 
         }
@@ -92,6 +98,23 @@ public class AheadInfoDisplay : MonoBehaviour
             _textDistance = ((int)(_distance * 100)).ToString() + "cm";
 
         textDistance.text = _textDistance;
+    }
+
+    public bool ConformSpeedLimit()
+    {
+        if ((SignType)signType == SignType.speedLimit)
+        {
+            SpeedLimit _speedLimit = info.GetComponent<SpeedLimit>();
+            if (_speedLimit.conformed == false)
+            {
+                AudioManager.instance.PlaySFX(sfxType.speedLimitConform, 1f, 0.5f);
+                _speedLimit.conformed = true;
+                UI.instance.XPSystem.ConformingSpeedLimit(_speedLimit.warnTime, Time.timeSinceLevelLoad);
+                return true;
+            }
+            else return false;
+        }
+        return false;
     }
 
 }

@@ -27,6 +27,5 @@ public class MeterDisplay : MonoBehaviour
 
         if (text != null)
             text.text=Mathf.RoundToInt(value).ToString();
-
     }
 }

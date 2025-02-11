@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI.TableUI;
 
 public class TimeTable : MonoBehaviour
 {
+    [SerializeField] private Transform pasteParent;
     private TableUI table;
 
-    void Start()
+    public void CreateTimeTable()
     {
         table = GetComponent<TableUI>();
         table.Columns = 3;
@@ -30,13 +32,15 @@ public class TimeTable : MonoBehaviour
 
         for (int i = 0; i < _stopInfo.Count; i++)
         {
-            _stopInfo[i].arrivalTime += GlobalVar.instance.departureTime;
-            _stopInfo[i].departureTime += GlobalVar.instance.departureTime;
+            _stopInfo[i].arrivalTime += LevelInfo.instance.departureTime;
+            _stopInfo[i].departureTime += LevelInfo.instance.departureTime;
 
-            table.GetCell(i+1,0).text = _stopInfo[i].stopName;
+            table.GetCell(i+1,0).text = _stopInfo[i].GetLocalizedText();
             table.GetCell(i+1,1).text = _stopInfo[i].arrivalTime.ToString();
             table.GetCell(i+1,2).text = _stopInfo[i].passing ? "Non-Stop" : _stopInfo[i].departureTime.ToString();
         }
+
+        Instantiate(gameObject, pasteParent).transform.localPosition = Vector3.zero;
     }
 
 }

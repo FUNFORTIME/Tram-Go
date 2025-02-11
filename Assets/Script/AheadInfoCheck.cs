@@ -8,36 +8,41 @@ public class AheadInfoCheck : MonoBehaviour
     [SerializeField]private AheadInfoDisplay displayLeft;
     [SerializeField]private AheadInfoDisplay displayRight;
 
-    private bool stopAtStation = false;
+    public bool stopAtStation = false;
 
     private Transform frontCheck;
     private Tram tram;
     private XPSystem xpSystem;
 
     private List<Transform> hitAhead=new List<Transform>();
-    private AheadInfoDisplay displayFirst;//距离最近的display
+    private AheadInfoDisplay displayFirst;//display
 
     void Start()
     {
         frontCheck=Manager.instance.frontCheck;
         tram=Manager.instance.tram;
-        xpSystem = Manager.instance.XPSystem;
+        xpSystem = UI.instance.XPSystem;
     }
 
     void Update()
     {
-        Collider2D _hit = Physics2D.OverlapPoint(frontCheck.position,1<<(int)SignType.warn);
+        Collider2D[] _hits = Physics2D.OverlapPointAll(frontCheck.position,1<<(int)SignType.warn);
 
-        if (_hit != null)
+        foreach (Collider2D _hit in _hits)
         {
-            Transform _hitAhead = _hit.transform.parent;
-            if (!hitAhead.Contains(_hitAhead))
+            if (_hit != null)
             {
-                Enqueue(_hitAhead);
+                Transform _hitAhead = _hit.transform.parent;
+                if (!hitAhead.Contains(_hitAhead))
+                {
+                    Enqueue(_hitAhead);
+                }
             }
-        }
 
-        CheckQueue();
+        }        
+        
+        CheckQueue(displayLeft);
+        CheckQueue(displayRight);
     }
 
     private void Enqueue(Transform _hitAhead)
@@ -52,12 +57,17 @@ public class AheadInfoCheck : MonoBehaviour
                 Stop _stopInfo = _hitAhead.GetComponent<Stop>();
                 if (!_stopInfo.passing)
                 {
-                    _stopInfo.station.SpawnPassenger(_stopInfo.station.population);
-                    tram.GenerateUnboardList(_stopInfo.station);
+                    _stopInfo.station.StartAudioPlay();
+
+                    if(!_stopInfo.terminus)
+                        _stopInfo.station.SpawnPassenger((int)(_stopInfo.station.populationBoard* UnityEngine.Random.Range(0.5f, 1.5f)));
+                    tram.GenerateUnboardList(_stopInfo.station,_stopInfo.terminus);
                 }
                 break;
 
             case SignType.speedLimit:
+                SpeedLimit _speedLimit = _hitAhead.GetComponent<SpeedLimit>();
+                _speedLimit.warnTime = Time.timeSinceLevelLoad;
                 break;
 
             case SignType.signal:
@@ -65,14 +75,20 @@ public class AheadInfoCheck : MonoBehaviour
                 StartCoroutine(signal.StartChangingColor());
                 break;
 
+            case SignType.terminus:
+                break;
+
+            case SignType.trigger:
+                break;
+
             default:
                 break;
         }
     }
 
-    private void Dequeue()
+    private void Dequeue(Transform _target)
     {
-        hitAhead.RemoveAt(0);
+        hitAhead.Remove(_target);
         UpdateDisplay();
     }
 
@@ -100,52 +116,54 @@ public class AheadInfoCheck : MonoBehaviour
         }
     }
 
-    private void CheckQueue()
+    private void CheckQueue(AheadInfoDisplay display)
     {
-        if (displayFirst == null) return;
+        if (display == null) return;
 
-        float _distance = displayFirst.distance;
+        float _distance = display.distance;
 
-        switch ((SignType)displayFirst.signType)
+        switch ((SignType)display.signType)
         {
             case SignType.stop:
-                Stop _stopInfo = displayFirst.info.GetComponent<Stop>();
+                Stop _stopInfo = display.info.GetComponent<Stop>();
 
                 if (_stopInfo.passing)
                 {
                     if (_distance <= 0)
                     {
                         int _delay = (VirtualTime.CurrentTime() - _stopInfo.arrivalTime).ToInt();
-                        xpSystem.StopPassed(_stopInfo.stopName, _delay, _stopInfo.maxAcceptDelay);
-                        Dequeue();
+                        xpSystem.StopPassed(_stopInfo.GetLocalizedText(), _delay, _stopInfo.maxAcceptDelay);
+                        Dequeue(display.tf);
                     }
-                }//甩站
+                }
                 else
                 {
                     float _maxAcceptDeviation = _stopInfo.maxAcceptDeviation;
+                    float _depSignalDistance =  _stopInfo.depSignal==null?-10f: _stopInfo.transform.position.x - _stopInfo.depSignal.transform.position.x;
                     if (Mathf.Abs(tram.speed) < 0.01f && tram.doorOpen && MathF.Abs(_distance) < _maxAcceptDeviation)
                     {
                         if (stopAtStation == false)
                         {
                             int _delay = (VirtualTime.CurrentTime() - _stopInfo.arrivalTime).ToInt();
-                            xpSystem.StopAtStation(_stopInfo.stopName, _distance, _maxAcceptDeviation, _delay, _stopInfo.maxAcceptDelay);
+                            xpSystem.StopAtStation(_stopInfo, _distance, _delay,_stopInfo.maxAcceptDeviation, _stopInfo.maxAcceptDelay);
                         }
                         stopAtStation = true;
 
-                        tram.UnboardPassenger(_stopInfo.station);//下客
-                        _stopInfo.station.BoardPassenger();//上客
-                    }//到站
-                    if (_distance < -10f && stopAtStation)
+                        tram.UnboardPassenger(_stopInfo.station);
+                        _stopInfo.station.BoardPassenger();
+                    }
+                    if (_distance < _depSignalDistance && stopAtStation)
                     {
                         int _delay = (VirtualTime.CurrentTime() - _stopInfo.departureTime).ToInt();
-                        xpSystem.Depart(_stopInfo.stopName, _delay, _stopInfo.maxAcceptDelay * 2);
+                        xpSystem.Depart(_stopInfo.GetLocalizedText(), _delay, _stopInfo.maxAcceptDelay * 2);
                         stopAtStation = false;
 
                         foreach (Passenger passenger in _stopInfo.station.passengerList)
                             Destroy(passenger.gameObject);
 
-                        Dequeue();
-                    }//出站
+                        _stopInfo.station.StopAudioPlay();
+                        Dequeue(display.tf);
+                    }
                     if (_distance < -50f && !stopAtStation)
                     {
                         xpSystem.StopMissed(_stopInfo.stopName);
@@ -153,23 +171,28 @@ public class AheadInfoCheck : MonoBehaviour
                         foreach(Passenger passenger in _stopInfo.station.passengerList)
                             Destroy(passenger.gameObject);
 
-                        Dequeue();
-                    }//过站
-                }//停靠站
+                        _stopInfo.station.StopAudioPlay();
+                        Dequeue(display.tf);
+                    }
+                }
                 break;
 
             case SignType.speedLimit:
-                SpeedLimit _speedLimit=displayFirst.info.GetComponent<SpeedLimit>();
+                SpeedLimit _speedLimit=display.info.GetComponent<SpeedLimit>();
 
                 if (_distance <= 0)
                 {
                     tram.speedLimit = _speedLimit.speedLimit;
-                    Dequeue();
+                    if (_speedLimit.conformed == false)
+                        xpSystem.SpeedLimitNotConformed();
+
+                    AudioManager.instance.PlaySFX(sfxType.speedLimitUpdate, 1f, 0.5f);
+                    Dequeue(display.tf);
                 }
                 break;
 
             case SignType.signal:
-                Signal signal=displayFirst.info.GetComponent<Signal>();
+                Signal signal=display.info.GetComponent<Signal>();
                 
                 if (_distance <= 0)
                 {
@@ -179,17 +202,42 @@ public class AheadInfoCheck : MonoBehaviour
                             xpSystem.RunThroughRedSignal();
                             break;
                         case SignalColor.yellow:
-                            tram.signalSpeedLimit = GlobalVar.instance.signalSpeedLimit;
+                            tram.signalSpeedLimit = LevelInfo.instance.level.signalSpeedLimit;
                             break;
                         case SignalColor.green:
                             tram.signalSpeedLimit = 1000;
                             break;
                     }
-                    Dequeue();
+                    Dequeue(display.tf);
                 }
                 break;
+
+            case SignType.terminus:
+                if(MathF.Abs(tram.speed) < 0.01f||_distance<0)
+                {
+                    UI.instance.resultDisplay.ShowResult();
+                    Dequeue(display.tf);
+                }
+                break;
+
+            case SignType.trigger:
+                if (_distance < 0)
+                {
+                    Trigger trigger = display.info.GetComponent<Trigger>();
+                    trigger.CallTrigger();
+                    Dequeue(display.tf);
+                }
+                break;
+
+
             default:break;
         }
+    }
+
+    public void ConformSpeedLimit()
+    {
+        if(displayLeft.ConformSpeedLimit()==false)
+            displayRight.ConformSpeedLimit();
     }
 
     private void OnDrawGizmos()

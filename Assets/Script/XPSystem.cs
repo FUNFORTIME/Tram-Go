@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class XPSystem : MonoBehaviour ,ISaveManager
+public class XPSystem : MonoBehaviour 
 {
     [SerializeField] private TextMeshProUGUI XPText;
     [SerializeField] private TextMeshProUGUI XPdeltaText;
+    [SerializeField] private GameObject message;//contain the texts
 
     [SerializeField] private float showDuration = 4f;
     [SerializeField] private Color greenColor;
@@ -26,6 +29,7 @@ public class XPSystem : MonoBehaviour ,ISaveManager
     void Start()
     {
         XPdeltaText.text = "";
+        //SceneManager.activeSceneChanged += OnSceneChanged;
     }
 
     void Update()
@@ -40,71 +44,99 @@ public class XPSystem : MonoBehaviour ,ISaveManager
     }
 
     #region StopXP
-    public void StopAtStation(string _stopName, float _deviation,float _maxAcceptDeviation,float _delay,float _maxAcceptDelay=20f)
+    public void StopAtStation(Stop _stop, float _deviation,float _delay,float _maxAcceptDeviation,float _maxAcceptDelay=20f)
     {
         int _deviationXP = LerpXPCalculation(deviationMinXP,deviationMaxXP,_deviation,_maxAcceptDeviation);
         int _delayXP = LerpXPCalculation(delayMinXP,delayMaxXP,_delay,_maxAcceptDelay);
 
-        string _deviationDescription = "Deviation:" + (int)(_deviation * 100) + "cm\tBonus:" + _deviationXP + "XP\n";
-        string _delayDescription = "Delay:" + (int)(_delay) + "s\tBonus:" + _delayXP + "XP";
+        //string _deviationDescription = $"{TXT("Deviation")}{(int)(_deviation * 100)}cm\t{TXT("BonusScore")} {_deviationXP}XP\n";
+        //string _delayDescription = $"{TXT("Delay")} {(int)_delay}s\t{TXT("BonusScore")} {_delayXP}XP";
 
-        ChangeXP(_delayXP + _deviationXP, "Stopped at "+_stopName+"\n"+ _deviationDescription+_delayDescription);
-    }//ͣ��վ
+        XP += _delayXP + _deviationXP;
+
+        StartCoroutine(
+                UI.instance.stopResultDisplay.ShowStopResult(deviationMinXP, deviationMaxXP, delayMinXP, delayMaxXP, _stop, _deviation, _delay));
+    }
     public void StopMissed(string _stopName)
     {
-        ChangeXP(-100,"Missed Stop:"+_stopName);
-    }//���ͣ��վ
+        ChangeXP(-100, $"{TXT("MissedStop")} {_stopName}");
+    }
+
     public void StopPassed(string _stopName, float _delay,float _maxAcceptDelay = 20f)
     {
         int _delayXP = LerpXPCalculation(delayMinXP,delayMaxXP, _delay,_maxAcceptDelay);
  
-        string _delayDescription = "Delay:" + (int)(_delay) + "s\tBonus:" + _delayXP + "XP";
+        string _delayDescription = $"{TXT("Delay")}{_delay}s\t{TXT("BonusScore")}{_delayXP}XP";
 
-        ChangeXP(_delayXP, "Passing " +_stopName+"\n"  +_delayDescription);
-    }//ͨ��վ
+        ChangeXP(_delayXP, $"{TXT("Passing")} {_stopName}\n{_delayDescription}");
+    }
     public void Depart(string _stopName, float _delay, float _maxAcceptDelay = 20f)
     {
         int _delayXP = LerpXPCalculation(delayMinXP, delayMaxXP, _delay, _maxAcceptDelay);
 
-        string _delayDescription = "Delay:" + (int)(_delay) + "s\tBonus:" + _delayXP + "XP";
+        string _delayDescription = $"{TXT("Delay")}{_delay}s\t{TXT("BonusScore")}{_delayXP}XP";
 
-        ChangeXP(_delayXP, "Depart from "+ _stopName+"\n" + _delayDescription);
+        ChangeXP(_delayXP, $"{TXT("Depart")} { _stopName}\n{ _delayDescription}");
     }
     public void PassengerBoard()
     {
-        ChangeXP(2, "Passenger Boarding");
+        ChangeXP(2, TXT("PassengerBoarding"));
     }
     #endregion
 
     public void EB()
     {
-        ChangeXP(-50, "Emergency Brake Pulled");
-    }//����EB
+        ChangeXP(-50, TXT("EB"));
+    }
     public void RunWithDoorOpen()
     {
-        ChangeXP(-100, "Run with doors open");
-    }//δ�������
+        ChangeXP(-100, TXT("RunWithDoorOpen"));
+    }
 
     public void RunThroughRedSignal()
     {
-        ChangeXP(-200, "Run through red signal");
-    }//�������
+        ChangeXP(-200, TXT("RunThroughRedSignal"));
+    }
 
+    #region SpeedLimit
     public void ExceedSpeedLimit(int _speed,int _speedLimit)
     {
-        ChangeXP(2*(_speedLimit-_speed)-10, "Speed Limit Exceed");
+        ChangeXP(2*(_speedLimit-_speed)-10, $"{TXT("SLE")} {_speedLimit} km/h");
+    }
+    public void ConformingSpeedLimit(float _warnTime,float _conformTime)
+    {
+        ChangeXP(10 - (int)(_conformTime - _warnTime),
+            $"{TXT("ConformingSpeedLimit")} {(int)(_conformTime - _warnTime)}s");
+    }
+    public void SpeedLimitNotConformed()
+    {
+        ChangeXP(-10, $"{TXT("SpeedLimitNotConformed")}");
+    }
+    #endregion
+
+    public void AccelerationExceed()
+    {
+        ChangeXP(-20, "G-Senser value too high");
+    }
+
+    public void NoRingBellCloseDoor()
+    {
+        ChangeXP(-10, "No door bell rang before door closed");
     }
 
     public void ChangeXP(int _XP,string _description)
     {
         if(descriptionCoroutine!=null) StopCoroutine(descriptionCoroutine);
         if(updateXPCoroutine!=null) StopCoroutine(updateXPCoroutine);
-        //��������Э���Է����� ͬʱֻ����ʾһ��
+        //This prevents the coroutines from running further if it is already active.
+
+        if (_XP < 0)
+            AudioManager.instance.PlaySFX(sfxType.punish, 1f, 0.5f);
 
         XP += _XP;
         Color _color = XP>=0? greenColor : redColor;
 
-        descriptionCoroutine= StartCoroutine(Manager.instance.descriptionController.ChangeDescription(_description,_color,showDuration));
+        descriptionCoroutine= StartCoroutine(UI.instance.descriptionController.ChangeDescription(_description,_color,showDuration));
         updateXPCoroutine= StartCoroutine(UpdateXPDisplay(_XP));
     }
 
@@ -119,13 +151,21 @@ public class XPSystem : MonoBehaviour ,ISaveManager
         XPdeltaText.text = "";
     }
 
-    public void LoadData(GameData _gameData)
+    //private void OnSceneChanged(Scene current, Scene next) => SaveXP();
+    public void SaveXP()
     {
-        this.XP = _gameData.xp;
-        XPText.text = XP.ToString();
+        if(XP>0)
+            SaveManager.instance.gameData.xp += XP;
+
+        if (SaveManager.instance.gameData.levelHighScore[LevelInfo.instance.level.GetString] < XP)
+            SaveManager.instance.gameData.levelHighScore[LevelInfo.instance.level.GetString] = XP;
+
+        SaveManager.instance.SaveGame();
     }
-    public void SaveData(ref GameData _gameData)
+
+    private string TXT(string name)
     {
-        _gameData.xp = this.XP;
+        string ret = TextHelper.GetTextFromChild(message, name);
+        return ret;
     }
 }

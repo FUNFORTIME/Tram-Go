@@ -29,7 +29,8 @@ public class SaveManager:MonoBehaviour
         else
             instance = this;
 
-        dataHandler = new FileDataHandler(Application.persistentDataPath, fileName);
+        SceneManager.activeSceneChanged += OnSceneChanged;
+        dataHandler=new FileDataHandler(Application.persistentDataPath,fileName);
         LoadGame();
     }
 
@@ -40,25 +41,27 @@ public class SaveManager:MonoBehaviour
         if(gameData == null)
             gameData = new GameData();
 
-/*        foreach (ISaveManager saveManager in saveManagers)
-        {
-            saveManager.LoadData(gameData);
-        }
-*/    }
+        //gameData.CompleteCheck();
+        //foreach (ISaveManager saveManager in saveManagers)
+        //{
+        //    saveManager.LoadData(gameData);
+        //}
+    }
 
     public void SaveGame()
     {
-/*        foreach (ISaveManager saveManager in saveManagers)
-        {
-            saveManager.SaveData(ref gameData);
-        }
-*/
+        //foreach (ISaveManager saveManager in saveManagers)
+        //{
+        //    saveManager.SaveData(ref gameData);
+        //}
+
         dataHandler.Save(gameData);
     }
 
-    private void OnDestroy()
+    public void ResetGame()
     {
-        SaveGame();
+        gameData = new GameData();
+        dataHandler.Save(gameData);
     }
 
     private void OnApplicationQuit()
@@ -66,10 +69,15 @@ public class SaveManager:MonoBehaviour
         SaveGame();
     }
 
-/*    private List<ISaveManager> FindAllSaveManage()
+    private void OnSceneChanged(Scene current,Scene next)
     {
-        IEnumerable<ISaveManager> saveManagers=FindObjectsOfType<MonoBehaviour>().OfType<ISaveManager>();
-
-        return new List<ISaveManager>(saveManagers);
+        SaveGame();
     }
-*/}
+
+    //private List<ISaveManager> FindAllSaveManage()
+    //{
+    //    IEnumerable<ISaveManager> saveManagers=FindObjectsOfType<MonoBehaviour>().OfType<ISaveManager>();
+
+    //    return new List<ISaveManager>(saveManagers);
+    //}
+}

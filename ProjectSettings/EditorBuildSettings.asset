@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RouteSelect.unity
     guid: 347efe73ac6c3894b858f21c3a45c317
+  - enabled: 1
+    path: Assets/Scenes/Level/Tutorial-Basics.unity
+    guid: 54fb8c784629a2f4781d0df9bd759bae
+  - enabled: 1
+    path: Assets/Scenes/Level/Tutorial-Sign.unity
+    guid: f6442182f704eb441b44b22369f67aca
   m_configObjects: {}

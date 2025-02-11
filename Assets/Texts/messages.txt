@@ -1,0 +1,16 @@
+EB
+RunWithDoorOpen
+RunThroughRedSignal
+SLE
+Deviation
+Delay
+BonusScore
+MissedStop
+Passing
+Depart
+PassengerBoarding
+StopAt
+ConformingSpeedLimit
+SpeedLimitNotConformed
+ConformingText
+ConformedText

@@ -6,15 +6,15 @@ using UnityEngine;
 public class SpeedLimit : SignParent
 {
     public int speedLimit;
+    public bool conformed = false;
+    public float warnTime;
 
     [SerializeField] private TextMeshPro signText;
     [SerializeField] private TextMeshPro warnText;
     [SerializeField] private Transform warn;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     private void OnValidate()

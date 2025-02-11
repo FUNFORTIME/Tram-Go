@@ -1,8 +1,42 @@
 Localization_Manager_Source
->GamePause
-GamePauseNote=Game Paused
-Resume=Resume
-Exit=Save & Exit
+>Menu
+GamePauseNote=Game Paused  
+GameExitNote=Want to quit?
+Menu=Menu  
+Resume=Resume  
+Exit=Save & Exit  
+Start=Start  
+Setting=Settings  
+Back=Back  
+BackToMainMenu=Back to Main Menu  
+Confirm=Confirm  
+Cancel=Cancel  
+Yes=Yes  
+No=No  
+Restart=Restart  
+Retry=Retry  
+Next=Next
+Apply=Apply  
+Reset=Reset to Default  
+AudioSettings  =
+VideoSettings=Video Settings  
+ControlSettings=Control Settings  
+GraphicsSettings=Graphics Settings  
+LanguageSettings=Language Settings  
+NotificationSettings=Notification Settings  
+AccessibilitySettings=Accessibility Settings  
+AccountSettings=Account Settings  
+PrivacySettings=Privacy Settings  
+NetworkSettings=Network Settings  
+SaveSettings=Save Settings  
+Chinese=简体中文
+English=English  
+Japanese=日本語
+EffectVolume=Effect Volume
+VoiceVolume=Voice Volume
+Language=Language
+ReSetData=Reset Data
+StartGame=Go!
 >Stops
 Stop=Stop
 Arr=Arr.
@@ -15,3 +49,23 @@ Kanda=Kanda
 Ebisu=Ebisu
 Shinagawa=Shinagawa
 Shinjuku=Shinjuku
+>Messages
+EB=Emergency Brake Pulled
+RunWithDoorOpen=Run with doors open
+RunThroughRedSignal=Run through red signal
+SLE=Speed Limit Exceed
+Deviation=Deviation:
+Delay=Delay:
+BonusScore=Bonus:
+MissedStop=Missed Stop:
+Passing=Passing 
+Depart=Depart from 
+PassengerBoarding=Passenger Boarding
+StopAt=Stop at:
+SpeedLimitNotConformed=未按照规定速度行驶
+ConformingSpeedLimit=按规定速度行驶时长：
+ConformingText=Comforming
+ConformedText=Comformed
+>Routes
+TestRoute=Test
+Route1=R1

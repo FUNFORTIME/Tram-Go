@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 [Serializable]
@@ -72,19 +71,65 @@ public struct VirtualTime
         return new VirtualTime(_h, _m, _s);
     }
 
-    public static VirtualTime CurrentTime() => new VirtualTime().FromInt((int)Time.time) +GlobalVar.instance.departureTime;
+    public static VirtualTime CurrentTime() => new VirtualTime().FromInt((int)Time.timeSinceLevelLoad) +LevelInfo.instance.departureTime;
 
 }
 
 [System.Serializable]
+public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
+{
+    [SerializeField] private List<TKey> keys = new List<TKey>();
+    [SerializeField] private List<TValue> values = new List<TValue>();
+
+    public void OnBeforeSerialize()
+    {
+        keys.Clear();
+        values.Clear();
+
+        foreach (KeyValuePair<TKey, TValue> pair in this)
+        {
+            keys.Add(pair.Key);
+            values.Add(pair.Value);
+        }
+    }
+
+    public void OnAfterDeserialize()
+    {
+        this.Clear();
+
+        if (keys.Count != values.Count)
+        {
+            Debug.Log("Keys count is not equal to values count");
+        }
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            this.Add(keys[i], values[i]);
+        }
+    }
+}
+[System.Serializable]
 public class GameData
 {
     public int xp;
-    public Dictionary<RouteDisplay,bool> routeUnlock;
-    public Dictionary<RouteDisplay,List<LevelInfo>> levelInfos;
+    public float effectVolume;
+    public float voiceVolume;
+    public SerializableDictionary<string, bool> routeUnlock=null;
+    public SerializableDictionary<string, int> levelHighScore = null;
 
     public GameData()
     {
-        this.xp = 0;
+        xp = 0;
+        effectVolume = 0.5f;
+        voiceVolume = 0.5f;
+        routeUnlock = new SerializableDictionary<string, bool>();
+        levelHighScore = new SerializableDictionary<string, int>();
+    }
+
+    public GameData CompleteCheck()
+    {
+        if(routeUnlock==null)routeUnlock = new SerializableDictionary<string, bool>();
+        if(levelHighScore==null)levelHighScore = new SerializableDictionary<string, int>();
+        return this;
     }
 }

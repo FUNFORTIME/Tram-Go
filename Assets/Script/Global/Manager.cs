@@ -8,11 +8,6 @@ public class Manager : MonoBehaviour
     public Tram tram;
     public Transform frontCheck;
 
-    public XPSystem XPSystem;
-    public DescriptionDisplay descriptionController;
-    public ReverseHandleDisplay reverseHandleController;
-    public Pause pause;
-
     private void Awake()
     {
         if (instance != null)
@@ -20,4 +15,6 @@ public class Manager : MonoBehaviour
         else
             instance = this;
     }
+
+
 }

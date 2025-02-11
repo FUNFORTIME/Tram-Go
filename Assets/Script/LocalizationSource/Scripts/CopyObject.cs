@@ -9,11 +9,14 @@ public class CopyObject : MonoBehaviour
     [SerializeField] private GameObject sourceObject;
     [SerializeField] private string nameFilePath;
     [SerializeField] private Transform parent;
+
+    [SerializeField] private bool copyObjects;
+    [SerializeField] private bool SetKey;
     // Start is called before the first frame update
     void Start()
     {
-        CopyObjects();
-        SetKeyIDForAllChildren(gameObject);
+        if(copyObjects)CopyObjects();
+        if(SetKey)SetKeyIDForAllChildren(gameObject);
     }
 
     // Update is called once per frame
@@ -31,7 +34,6 @@ public class CopyObject : MonoBehaviour
         {
             // set keyID 
             localizationKey.keyID = parent.name;
-            Debug.Log($"Set keyID of {parent.name} to {localizationKey.keyID}");
         }
 
         
@@ -79,9 +81,14 @@ public class CopyObject : MonoBehaviour
         {
             GameObject copiedObject = Instantiate(sourceObject, parent);
             copiedObject.name = name;
-        }
 
-        Debug.Log("Finished!");
+            //// Save As Prefab
+            //string prefabPath = Path.Combine("Assets/Prefabs", $"{name}.prefab");
+            //ObjectSaver.SaveAsPrefab(copiedObject, prefabPath);
+
+            //// Mark As Dirty
+            //ObjectSaver.MarkAsDirty(copiedObject);
+        }
     }
 }
 

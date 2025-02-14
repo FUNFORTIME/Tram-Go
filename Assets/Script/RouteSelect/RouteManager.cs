@@ -17,7 +17,7 @@ public class RouteManager : MonoBehaviour
             Route route = _routeDisplay.route;
 
             if (!gameData.routeUnlock.ContainsKey(route.routeName))
-                gameData.routeUnlock.Add(route.routeName, false);
+                gameData.routeUnlock.Add(route.routeName, route.xpToUnlock==0);
 
             _routeDisplay.route.unlock = gameData.routeUnlock[route.routeName];
             _routeDisplay.UpdateDisplay();
@@ -35,8 +35,7 @@ public class RouteManager : MonoBehaviour
 
         foreach (Route route in routes)
         {
-            GameObject _obj = Instantiate(routeDisplayPrefab);
-            _obj.transform.SetParent(transform);
+            GameObject _obj = Instantiate(routeDisplayPrefab,transform);
             RouteDisplay _routeDisplay = _obj.GetComponent<RouteDisplay>();
             _routeDisplay.route = route;
             _routeDisplay.UpdateDisplay();

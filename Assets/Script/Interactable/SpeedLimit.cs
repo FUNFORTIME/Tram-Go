@@ -26,6 +26,6 @@ public class SpeedLimit : SignParent
 
         signText.text=speedLimit.ToString();
         warnText.text=showWarnSign? speedLimit.ToString():"";
-        warn.localPosition = new Vector3(-warnDistance, 0);
+        warn.localPosition = new Vector3(-warnDistance, warn.localPosition.y);
     }
 }

@@ -8,9 +8,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Level")]
 public class Level :ScriptableObject
 {
-    public SceneAsset scene;
     public string routeName;
     public string levelName;
+    public int xpToUnlock = 0 ;
+    public bool unlock=false;
     //[TextArea] public string levelDescription;
 
     public int signalSpeedLimit = 60;

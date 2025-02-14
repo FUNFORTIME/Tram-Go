@@ -31,7 +31,6 @@ public class Tram : MonoBehaviour
     [Tooltip("km/h")] public float maxSpeed = 120f;
 
     [Header("External Access")]
-    [SerializeField] private MeterDisplay speedMeter;
     [SerializeField] private HandleDisplay handleController;
     [SerializeField] private GameObject timeTable;
 
@@ -64,8 +63,6 @@ public class Tram : MonoBehaviour
             speed = maxSpeed;
             handle = 0;
         }
-
-        speedMeter.value = speed;
     }
 
     void Update()

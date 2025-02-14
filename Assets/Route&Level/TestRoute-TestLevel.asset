@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd84e4f2833e414897a1748045d64da, type: 3}
   m_Name: TestRoute-TestLevel
   m_EditorClassIdentifier: 
-  scene: {fileID: 102900000, guid: de6609cf59592ea4bb1c38a57d9e827d, type: 3}
   routeName: TestRoute
   levelName: TestLevel
+  xpToUnlock: 0
+  unlock: 0
   signalSpeedLimit: 30
-  highScore: 1180
+  highScore: 0
   maxScore: 1000
   bronzeScore: 500
   silverScore: 700

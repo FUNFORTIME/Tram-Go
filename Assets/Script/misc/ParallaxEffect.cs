@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class ParallaxBagckground : MonoBehaviour
@@ -10,13 +9,13 @@ public class ParallaxBagckground : MonoBehaviour
     [SerializeField] private float parallaxEffect;
 
     private float xPosition;
-    private float length;
+    public float length=0;
 
     void Start()
     {
         cam = GameObject.Find("Main Camera");
 
-        length = GetComponent<SpriteRenderer>().bounds.size.x;
+        if(length==0)length = GetComponent<SpriteRenderer>().bounds.size.x;
         xPosition = transform.position.x;
     }
 

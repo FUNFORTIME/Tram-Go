@@ -114,7 +114,10 @@ public class GameData
     public int xp;
     public float effectVolume;
     public float voiceVolume;
+    public GameMode gameMode;
+    public LanguageType language;
     public SerializableDictionary<string, bool> routeUnlock=null;
+    public SerializableDictionary<string, bool> levelUnlock = null;
     public SerializableDictionary<string, int> levelHighScore = null;
 
     public GameData()
@@ -122,13 +125,17 @@ public class GameData
         xp = 0;
         effectVolume = 0.5f;
         voiceVolume = 0.5f;
+        gameMode = GameMode.normal;
+        language = LanguageType.english;
         routeUnlock = new SerializableDictionary<string, bool>();
+        levelUnlock = new SerializableDictionary<string, bool>();   
         levelHighScore = new SerializableDictionary<string, int>();
     }
 
     public GameData CompleteCheck()
     {
         if(routeUnlock==null)routeUnlock = new SerializableDictionary<string, bool>();
+        if (levelUnlock == null) levelUnlock = new SerializableDictionary<string, bool>();
         if(levelHighScore==null)levelHighScore = new SerializableDictionary<string, int>();
         return this;
     }

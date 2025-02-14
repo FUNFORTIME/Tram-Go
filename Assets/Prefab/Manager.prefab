@@ -1220,6 +1220,8 @@ MonoBehaviour:
     xp: 0
     effectVolume: 0.5
     voiceVolume: 0.5
+    gameMode: 0
+    language: 1
     routeUnlock:
       keys: []
       values: 
@@ -1466,7 +1468,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6609062715308510, guid: c9438f4938367d049a46aa207ede9fd4, type: 3}
       propertyPath: m_Size
-      value: 1
+      value: 0.99965835
       objectReference: {fileID: 0}
     - target: {fileID: 623909835691905947, guid: c9438f4938367d049a46aa207ede9fd4, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1890,7 +1892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3784348878580788999, guid: c9438f4938367d049a46aa207ede9fd4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00021853673
+      value: 0.04378205
       objectReference: {fileID: 0}
     - target: {fileID: 4049876681901277572, guid: c9438f4938367d049a46aa207ede9fd4, type: 3}
       propertyPath: m_AnchorMax.y

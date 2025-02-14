@@ -48,7 +48,7 @@ public class Stop : SignParent
 
     private void OnValidate()
     {
-        warnSign.localPosition = new Vector3(-warnDistance, 0);
+        warnSign.localPosition = new Vector3(-warnDistance, warnSign.localPosition.y);
 
         //transform.parent.name = stopName;
         //stopText.text = stopName;

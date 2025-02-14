@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48a8b931bd7e26c48a1dc46412f9e34e, type: 3}
   m_Name: TestRoute
   m_EditorClassIdentifier: 
-  unlock: 0
+  unlock: 1
   xpToUnlock: 10
   routeName: TestRoute
   levelList:
-  - {fileID: 11400000, guid: 9c43f5dd0126c47499f1d619aef22107, type: 2}
+  - {fileID: 11400000, guid: 4b7fb5dbb2764324f9ab4e079e5f6470, type: 2}

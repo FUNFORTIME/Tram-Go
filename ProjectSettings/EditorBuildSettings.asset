@@ -5,9 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Route1.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: de6609cf59592ea4bb1c38a57d9e827d
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 364d73531fbd29442bbbdc7e50937001
@@ -15,9 +15,15 @@ EditorBuildSettings:
     path: Assets/Scenes/RouteSelect.unity
     guid: 347efe73ac6c3894b858f21c3a45c317
   - enabled: 1
-    path: Assets/Scenes/Level/Tutorial-Basics.unity
+    path: Assets/Scenes/Level/Tutorial/Tutorial-Basics.unity
     guid: 54fb8c784629a2f4781d0df9bd759bae
   - enabled: 1
-    path: Assets/Scenes/Level/Tutorial-Sign.unity
+    path: Assets/Scenes/Level/Tutorial/Tutorial-Sign.unity
     guid: f6442182f704eb441b44b22369f67aca
+  - enabled: 1
+    path: Assets/Scenes/Level/BeiJingCentralAxisTourLine/BeiJingCentralAxisTourLine-Normal.unity
+    guid: 9dbea4f5edff3204c8a21ac9a3c3beb7
+  - enabled: 1
+    path: Assets/Scenes/Level/BeiJingCentralAxisTourLine/BeiJingCentralAxisTourLine-PeakSeason.unity
+    guid: 10490b6d4374f284bb3d13d4a3fdf24a
   m_configObjects: {}

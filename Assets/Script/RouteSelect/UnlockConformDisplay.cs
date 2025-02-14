@@ -28,7 +28,7 @@ public class UnlockConformDisplay : MonoBehaviour
         Hide();
     }
 
-    public void Show(RouteDisplay routeDisplay)
+    public void ConformRoute(RouteDisplay routeDisplay)
     {
         Route route = routeDisplay.route;
         int _xp=SaveManager.instance.gameData.xp;
@@ -52,6 +52,33 @@ public class UnlockConformDisplay : MonoBehaviour
             yesButton.onClick.RemoveAllListeners();
             yesButton.interactable = false;
         }
+    }
+
+    public void ConformLevel(LevelDisplay levelDisplay)
+    {
+        Level level = levelDisplay.level;
+        int _xp = SaveManager.instance.gameData.xp;
+
+        gameObject.SetActive(true);
+
+        if (_xp >= level.xpToUnlock)
+        {
+            conformText.text =
+                string.Format("Unlock {0} with {1}XP?", level.levelName, level.xpToUnlock.ToString());
+
+            yesButton.interactable = true;
+            yesButton.onClick.RemoveAllListeners();
+            yesButton.onClick.AddListener(levelDisplay.Unlock);
+            yesButton.onClick.AddListener(Hide);
+        }
+        else
+        {
+            conformText.text = string.Format("No enough XP to unlock {0}.", level.levelName);
+
+            yesButton.onClick.RemoveAllListeners();
+            yesButton.interactable = false;
+        }
+
     }
 
     private void Hide()

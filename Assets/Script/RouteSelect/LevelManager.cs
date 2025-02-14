@@ -8,6 +8,7 @@ public class LevelManager : MonoBehaviour
 
     public static LevelManager instance;
     [SerializeField] private GameObject levelDisplayPrefab;
+    [SerializeField] private GameObject levelSelectPanel;
 
     private void Awake()
     {
@@ -19,14 +20,14 @@ public class LevelManager : MonoBehaviour
 
     private void Start()
     {
-        transform.parent.gameObject.SetActive(false);
+        Hide();
     }
 
     public void Show(Route route)
     {
+        levelSelectPanel.SetActive(true);
         gameData = SaveManager.instance.gameData;
 
-        transform.parent.gameObject.SetActive(true);
 
         for (int i = 0;i<transform.childCount;i++)
             Destroy(transform.GetChild(i).gameObject);
@@ -35,25 +36,19 @@ public class LevelManager : MonoBehaviour
         {
             Level level = route.levelList[i];
 
-            GameObject _obj = Instantiate(levelDisplayPrefab);
+            GameObject _obj = Instantiate(levelDisplayPrefab, transform);
             LevelDisplay _levelDisplay = _obj.GetComponent<LevelDisplay>();
-
-            if (!gameData.levelHighScore.ContainsKey(level.GetString))
-                gameData.levelHighScore.Add(level.GetString, 0);
 
             _levelDisplay.level = level;
 
             _levelDisplay.level.highScore = gameData.levelHighScore[level.GetString];
+            _levelDisplay.level.unlock=gameData.levelUnlock[level.GetString];
             _levelDisplay.UpdateDisplay();
-            _obj.transform.SetParent(transform);
         }
-
-        SaveManager.instance.gameData = gameData;
-        SaveManager.instance.SaveGame();
     }
 
     private void Hide()
     {
-        transform.parent.gameObject.SetActive(false);
+        levelSelectPanel.SetActive(false);
     }
 }

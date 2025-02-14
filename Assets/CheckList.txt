@@ -6,3 +6,6 @@ Variable CheckList:
 前Cabin车钩连接后Cabin
 将Cabin分配至Tram
 禁用末尾Cabin车钩组件
+
+Manager中分配Tram FrontCheckPoint
+Tram中分配ExternalAccess

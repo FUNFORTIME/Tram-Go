@@ -15,6 +15,8 @@ public class Signal : SignParent
 
     private void Start()
     {
+        signalPanel.ChangeColor(signalColor);
+        if (showWarnSign) signalWarnPanel.ChangeColor(signalColor);
     }
 
     private void OnValidate()
@@ -27,7 +29,7 @@ public class Signal : SignParent
         signalPanel.ChangeColor(signalColor);
         if(showWarnSign) signalWarnPanel.ChangeColor(signalColor);
 
-        warnSignal.position = this.transform.position - new Vector3(warnDistance, 0);
+        warnSignal.localPosition = new Vector3(-warnDistance, warnSignal.localPosition.y);
     }
 
     public IEnumerator StartChangingColor()

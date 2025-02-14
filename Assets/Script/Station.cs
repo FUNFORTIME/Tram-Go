@@ -97,7 +97,6 @@ public class Station : MonoBehaviour
     void Update()
     {
         SetStationName();
-        Debug.Log($"stationName.text:{stationName.text}");
     }
     private void OnValidate()
     {

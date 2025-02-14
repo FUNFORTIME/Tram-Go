@@ -11,8 +11,27 @@ public class RouteDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI routeText;
     [SerializeField]private TextMeshProUGUI unlockText;
 
+    [SerializeField] private Image medalImage;
+    [SerializeField] private Sprite bronzeMedal;
+    [SerializeField]private Sprite silverMedal;
+    [SerializeField] private Sprite goldMedal;
+
     private void Start()
     {
+        GameData gameData = SaveManager.instance.gameData;
+        foreach (Level level in route.levelList)
+        {
+            if (!gameData.levelHighScore.ContainsKey(level.GetString))
+                gameData.levelHighScore.Add(level.GetString, 0);
+
+            if (!gameData.levelUnlock.ContainsKey(level.GetString))
+                gameData.levelUnlock.Add(level.GetString, level.xpToUnlock==0);
+
+            level.highScore = gameData.levelHighScore[level.GetString];
+        }
+        SaveManager.instance.gameData = gameData;
+        SaveManager.instance.SaveGame();
+
         UpdateDisplay();
     }
 
@@ -28,8 +47,23 @@ public class RouteDisplay : MonoBehaviour
         }
         else
         {
-            button.onClick.AddListener(() => UnlockConformDisplay.instance.Show(this));
+            button.onClick.AddListener(() => UnlockConformDisplay.instance.ConformRoute(this));
         }
+
+        bool _bronzeAchieve = true;
+        bool _silverAchieve = true;
+        bool _goldAchieve = true;
+        foreach(Level level in route.levelList)
+        {
+            if (level.highScore<level.bronzeScore)_bronzeAchieve=false;
+            if (level.highScore<level.silverScore)_silverAchieve=false;
+            if(level.highScore<level.goldScore)_goldAchieve=false;
+        }
+
+        medalImage.enabled = _bronzeAchieve || _silverAchieve || _goldAchieve;
+        if (_bronzeAchieve) medalImage.sprite = bronzeMedal;
+        if (_silverAchieve) medalImage.sprite = silverMedal;
+        if (_goldAchieve) medalImage.sprite = goldMedal;
     }
 
     public void Unlock()
@@ -45,7 +79,6 @@ public class RouteDisplay : MonoBehaviour
 
     private void OnValidate()
     {
-        name = route.routeName;
         
     }
 

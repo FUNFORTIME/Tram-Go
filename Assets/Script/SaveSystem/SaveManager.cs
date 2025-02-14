@@ -3,6 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using System;
+
+[Serializable]
+public enum LanguageType
+{
+    chinese,
+    english,
+    japanese,
+}
+
+[Serializable]
+public enum GameMode
+{
+    normal,
+    hard,
+    real,
+}
 
 public class SaveManager:MonoBehaviour
 {
@@ -71,6 +88,17 @@ public class SaveManager:MonoBehaviour
 
     private void OnSceneChanged(Scene current,Scene next)
     {
+        SaveGame();
+    }
+
+    public void SetLanguageType(int language)
+    {
+        gameData.language = (LanguageType)language;
+        SaveGame();
+    }
+    public void SetGameMode(int gameMode)
+    {
+        gameData.gameMode = (GameMode)gameMode;
         SaveGame();
     }
 

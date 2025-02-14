@@ -215,6 +215,7 @@ public class AheadInfoCheck : MonoBehaviour
             case SignType.terminus:
                 if(MathF.Abs(tram.speed) < 0.01f||_distance<0)
                 {
+                    UI.instance.resultDisplay.gameObject.SetActive(true);
                     UI.instance.resultDisplay.ShowResult();
                     Dequeue(display.tf);
                 }

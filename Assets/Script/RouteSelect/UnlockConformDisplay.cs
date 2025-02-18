@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class UnlockConformDisplay : MonoBehaviour
     [SerializeField]private TextMeshProUGUI conformText;
     [SerializeField] private Button yesButton;
     [SerializeField] private Button noButton;
-
+    [SerializeField] private GameObject textBox;
     private void Awake()
     {
         if (instance != null)
@@ -38,7 +39,7 @@ public class UnlockConformDisplay : MonoBehaviour
         if (_xp >= route.xpToUnlock)
         {
             conformText.text = 
-                string.Format("Unlock {0} with {1}XP?", route.routeName, route.xpToUnlock.ToString());
+                string.Format($"{TXT("UnlockConform1")} {route.xpToUnlock.ToString()}XP {TXT("UnlockConform2")} {route.routeName} ?");//UnlockConform
 
             yesButton.interactable = true;
             yesButton.onClick.RemoveAllListeners();
@@ -47,7 +48,7 @@ public class UnlockConformDisplay : MonoBehaviour
         }
         else
         {
-            conformText.text= string.Format( "No enough XP to unlock {0}.",route.routeName);
+            conformText.text= string.Format( $"{TXT("UnlockXPnotEnough")} {route.routeName}");//UnlockXPnotEnough
 
             yesButton.onClick.RemoveAllListeners();
             yesButton.interactable = false;
@@ -64,7 +65,8 @@ public class UnlockConformDisplay : MonoBehaviour
         if (_xp >= level.xpToUnlock)
         {
             conformText.text =
-                string.Format("Unlock {0} with {1}XP?", level.levelName, level.xpToUnlock.ToString());
+                string.Format($"{TXT("UnlockConform1")} {level.xpToUnlock.ToString()}XP {TXT("UnlockConform2")} {level.levelName} ?");//UnlockConform
+            
 
             yesButton.interactable = true;
             yesButton.onClick.RemoveAllListeners();
@@ -73,8 +75,7 @@ public class UnlockConformDisplay : MonoBehaviour
         }
         else
         {
-            conformText.text = string.Format("No enough XP to unlock {0}.", level.levelName);
-
+            conformText.text = string.Format($"{TXT("UnlockXPnotEnough")} {level.levelName}");//UnlockXPnotEnough
             yesButton.onClick.RemoveAllListeners();
             yesButton.interactable = false;
         }
@@ -84,5 +85,11 @@ public class UnlockConformDisplay : MonoBehaviour
     private void Hide()
     {
         gameObject.SetActive(false);
+    }
+
+    private string TXT(string name)
+    {
+        string ret = TextHelper.GetTextFromChild(textBox, name);
+        return ret;
     }
 }

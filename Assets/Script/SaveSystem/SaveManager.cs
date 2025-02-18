@@ -29,6 +29,7 @@ public class SaveManager:MonoBehaviour
 
     public GameData gameData;
 
+    public LanguageManager languageManager;
     //private List<ISaveManager> saveManagers;
 
     private FileDataHandler dataHandler;
@@ -94,6 +95,7 @@ public class SaveManager:MonoBehaviour
     public void SetLanguageType(int language)
     {
         gameData.language = (LanguageType)language;
+        languageManager.SetLanguage(language);
         SaveGame();
     }
     public void SetGameMode(int gameMode)

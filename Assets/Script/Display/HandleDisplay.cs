@@ -13,15 +13,16 @@ public class HandleDisplay : MonoBehaviour
     [SerializeField] private List<Image> powerLights;
     [SerializeField] private List<Image> brakeLights;
     [SerializeField] private Image idleLight;
-    [SerializeField] private Tram tram;
     [SerializeField] private GameObject EBHandlePrefab;
     [SerializeField] private GameObject BHandlePrefab;
     [SerializeField] private GameObject NHandlePrefab;
     [SerializeField] private GameObject PHandlePrefab;
     [SerializeField] private AudioSource toggleAudioSource;
+    private Tram tram;
 
     void Start()
     {
+        tram = Manager.instance.tram;
     }
 
     public void ChangeHandle(int _handle)

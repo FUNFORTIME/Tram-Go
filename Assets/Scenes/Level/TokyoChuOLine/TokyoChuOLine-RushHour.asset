@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd84e4f2833e414897a1748045d64da, type: 3}
   m_Name: TokyoChuOLine-RushHour
   m_EditorClassIdentifier: 
-  scene: {fileID: 0}
   routeName: TokyoChuOLine
   levelName: RushHour
+  xpToUnlock: 0
+  unlock: 0
   signalSpeedLimit: 60
   highScore: 0
   maxScore: 0

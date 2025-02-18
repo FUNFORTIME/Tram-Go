@@ -14,3 +14,7 @@ ConformingSpeedLimit
 SpeedLimitNotConformed
 ConformingText
 ConformedText
+HighScore
+Congratulations
+AccelerationExceed
+NoRing

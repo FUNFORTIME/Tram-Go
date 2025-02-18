@@ -115,12 +115,12 @@ public class XPSystem : MonoBehaviour
 
     public void AccelerationExceed()
     {
-        ChangeXP(-20, "G-Senser value too high");
+        ChangeXP(-20, TXT("AccelerationExceed"));
     }
 
     public void NoRingBellCloseDoor()
     {
-        ChangeXP(-10, "No door bell rang before door closed");
+        ChangeXP(-10, TXT("NoRing"));
     }
 
     public void ChangeXP(int _XP,string _description)

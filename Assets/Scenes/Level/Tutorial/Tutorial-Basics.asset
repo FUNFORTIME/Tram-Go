@@ -17,7 +17,7 @@ MonoBehaviour:
   xpToUnlock: 0
   unlock: 1
   signalSpeedLimit: 90
-  highScore: 183
+  highScore: 0
   maxScore: 250
   bronzeScore: 100
   silverScore: 150

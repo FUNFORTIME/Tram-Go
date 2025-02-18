@@ -166,7 +166,7 @@ public class AheadInfoCheck : MonoBehaviour
                     }
                     if (_distance < -50f && !stopAtStation)
                     {
-                        xpSystem.StopMissed(_stopInfo.stopName);
+                        xpSystem.StopMissed(_stopInfo.GetLocalizedText());
 
                         foreach(Passenger passenger in _stopInfo.station.passengerList)
                             Destroy(passenger.gameObject);
@@ -202,7 +202,7 @@ public class AheadInfoCheck : MonoBehaviour
                             xpSystem.RunThroughRedSignal();
                             break;
                         case SignalColor.yellow:
-                            tram.signalSpeedLimit = LevelInfo.instance.level.signalSpeedLimit;
+                            //tram.signalSpeedLimit = LevelInfo.instance.level.signalSpeedLimit;
                             break;
                         case SignalColor.green:
                             tram.signalSpeedLimit = 1000;

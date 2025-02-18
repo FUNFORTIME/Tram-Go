@@ -15,9 +15,9 @@ MonoBehaviour:
   routeName: BeiJingCentralAxisTourLine
   levelName: PeakSeason
   xpToUnlock: 2500
-  unlock: 1
+  unlock: 0
   signalSpeedLimit: 30
-  highScore: 2096
+  highScore: 0
   maxScore: 2200
   bronzeScore: 1500
   silverScore: 1800

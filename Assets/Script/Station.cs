@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 using static UnityEngine.RuleTile.TilingRuleOutput;
@@ -96,7 +97,7 @@ public class Station : MonoBehaviour
 
     void Update()
     {
-        SetStationName();
+        //SetStationName();
     }
     private void OnValidate()
     {
@@ -114,16 +115,21 @@ public class Station : MonoBehaviour
         if (textManager != null && textManager.textHolder != null)
         {
             GameObject textHolder = textManager.textHolder;
+            
             stationName.text = TextHelper.GetTextFromChild(textHolder, name);
-
+            
+            //Debug.Log($"TextHolder:{textHolder}\tname:{name}\tstationName.text:{stationName.text}");
+            
+            //if(stationName.text==""||stationName.text==null) 
+            //    stationName.text = TextHelper.GetTextFromChild(textHolder, "NULL");
+            
         }
-        //Debug.Log($"stationName.text:{stationName.text}");
-       
     }
 
     public string GetStationName() 
     {
         //Debug.Log($"stationName.text:{stationName.text}");
+        SetStationName();
         return stationName.text;
     }
 

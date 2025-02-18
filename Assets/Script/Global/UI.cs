@@ -8,11 +8,13 @@ public class UI : MonoBehaviour
 
     public XPSystem XPSystem;
     public DescriptionDisplay descriptionController;
+    public HandleDisplay handleDisplay;
     public ReverseHandleDisplay reverseHandleController;
     public AheadInfoCheck aheadInfoCheck;
     public Pause pause;
     public ResultDisplay resultDisplay;
     public StopResultDisplay stopResultDisplay;
+    public GameObject timeTable;
 
     private void Awake()
     {

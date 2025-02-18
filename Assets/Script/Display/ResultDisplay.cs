@@ -12,20 +12,19 @@ public class ResultDisplay : MonoBehaviour
     [SerializeField] private Transform bronzeMedal;
     [SerializeField] private Transform silverMedal;
     [SerializeField] private Transform goldMedal;
-    [SerializeField] private LevelInfo levelInfo;
     private int xp;
     private float width;
     private Level level;
 
     private void Start()
     {
+        level = LevelInfo.instance.level;
     }
 
     public void ShowResult()
     {
         gameObject.SetActive(true);
         xp = UI.instance.XPSystem.XP;
-        level = levelInfo.level;
         width=200;
 
         UI.instance.XPSystem.SaveXP();

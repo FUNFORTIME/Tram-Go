@@ -79,6 +79,7 @@ public class Stop : SignParent
 
     public string GetLocalizedText()
     {
+        
         return transform.parent.GetComponent<Station>().GetStationName();
     }
 

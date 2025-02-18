@@ -21,7 +21,7 @@ public static class TextHelper
             int lineNumber = stackFrame.GetFileLineNumber(); 
 
             
-            UnityEngine.Debug.LogError($"Parent null! Called from: {methodName} in {fileName} at line {lineNumber}");
+            UnityEngine.Debug.Log($"Parent null! Called from: {methodName} in {fileName} at line {lineNumber}");
 
             return string.Empty;
         }
@@ -35,7 +35,7 @@ public static class TextHelper
             string methodName = stackFrame.GetMethod().Name;
             string fileName = stackFrame.GetFileName();
             int lineNumber = stackFrame.GetFileLineNumber();
-            UnityEngine.Debug.LogError($"{childName} null! Called from: {methodName} in {fileName} at line {lineNumber}");
+            UnityEngine.Debug.Log($"{childName} null! Called from: {methodName} in {fileName} at line {lineNumber}");
             return string.Empty;
         }
 

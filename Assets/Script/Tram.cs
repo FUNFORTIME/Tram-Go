@@ -16,7 +16,7 @@ public class Tram : MonoBehaviour
     public float handleProportion;
     public bool forward = true;
     public bool doorOpen = false;
-    public float bellRingTime;//œÏ¡Â ±≥§
+    public float bellRingTime;
     public bool reverse = false;
     public List<Passenger> passengerList=new List<Passenger>();
     public List<Passenger> passengerUnboarding=new List<Passenger>();
@@ -29,10 +29,6 @@ public class Tram : MonoBehaviour
     [Range(-2, 0)] public List<float> brakeHandles;
     [Tooltip("m")] public float length = 5f;
     [Tooltip("km/h")] public float maxSpeed = 120f;
-
-    [Header("External Access")]
-    [SerializeField] private HandleDisplay handleController;
-    [SerializeField] private GameObject timeTable;
 
     private bool punishing = false;
     private Queue<float> speedRecord = new Queue<float>();
@@ -119,7 +115,7 @@ public class Tram : MonoBehaviour
         void HandleControl()
         {
             handle = Mathf.Clamp(handle, -brakeHandles.Count, powerHandles.Count);
-            handleController.ChangeHandle(handle);
+            UI.instance.handleDisplay.ChangeHandle(handle);
 
             if (handle == 0) handleProportion = 0;
             else if(handle>0) handleProportion=powerHandles[handle-1];
@@ -173,7 +169,8 @@ public class Tram : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.T))
             {
-                timeTable.gameObject.SetActive(!timeTable.gameObject.activeSelf);
+                GameObject _timeTable = UI.instance.timeTable;
+                _timeTable.SetActive(!_timeTable.activeSelf);
             }
             //Show/Hide Timetable
 

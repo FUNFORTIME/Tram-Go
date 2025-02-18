@@ -21,7 +21,9 @@ public class StopResultDisplay : MonoBehaviour
     [SerializeField] private TextMeshProUGUI maxDelayTextL;
     [SerializeField] private TextMeshProUGUI maxDelayTextR;
 
-    public IEnumerator ShowStopResult(int minDeviationXP,int maxDeviationXP, int minDelayXP, int maxDelayXP,Stop stop, float deviation, float delay)
+    [SerializeField] private GameObject stopMessage;
+
+    public IEnumerator ShowStopResult(int minDeviationXP, int maxDeviationXP, int minDelayXP, int maxDelayXP, Stop stop, float deviation, float delay)
     {
         gameObject.SetActive(true);
 
@@ -46,7 +48,7 @@ public class StopResultDisplay : MonoBehaviour
         float _deviation = -stop.maxAcceptDeviation;
         float _delay = -stop.maxAcceptDelay;
 
-        stationNameText.text = stop.stopName;
+        stationNameText.text = stop.GetLocalizedText();
 
         maxDeviationTextL.text = DistanceText(+stop.maxAcceptDeviation);
         maxDeviationTextR.text = DistanceText(-stop.maxAcceptDeviation);
@@ -62,7 +64,7 @@ public class StopResultDisplay : MonoBehaviour
             delayText.text = DelayText(_delay);
 
             int _score = LerpXPCalculation(minDeviationXP, maxDeviationXP, _deviation, stop.maxAcceptDeviation) + LerpXPCalculation(minDelayXP, maxDelayXP, _delay, stop.maxAcceptDelay);
-            scoreText.text = "Score: " + _score + "XP";
+            scoreText.text = $"{scoreText.text} {_score} XP";
 
             _deviation += Time.deltaTime * (Time.time - _startTime + 0.2f) * (deviation - _deviation) * 0.5f;
             _delay += Time.deltaTime * (Time.time - _startTime + 0.2f) * (delay - _delay) * 0.5f;
@@ -71,6 +73,13 @@ public class StopResultDisplay : MonoBehaviour
 
             yield return null;
         }
+    }
+
+    private string TXT(string name)
+    {
+        string ret = TextHelper.GetTextFromChild(stopMessage, name);
+        if (ret == null|| ret == "") ret=TextHelper.GetTextFromChild(stopMessage, "null");
+        return ret;
     }
 
 }

@@ -10,6 +10,7 @@ public class StartDisplay : MonoBehaviour
     [SerializeField]private SpeedLimitDisplay speedLimitDisplay;
     [SerializeField]private TimeTable timeTable;
 
+
     private void Start()
     {
         UI.instance.pause.ChangePause(false);
@@ -17,9 +18,9 @@ public class StartDisplay : MonoBehaviour
 
         Level level = LevelInfo.instance.level;
         signalInfoDisplay.SetSignal(SignalColor.yellow);
-        speedLimitDisplay.SetText(level.signalSpeedLimit, true);
+        //speedLimitDisplay.SetText(level.signalSpeedLimit, true);
 
-        levelName.text = level.routeName +"\n"+ level.levelName;
+        //levelName.text = level.routeName +"\n"+ level.levelName;
 
         timeTable.CreateTimeTable();
     }

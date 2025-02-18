@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI.TableUI;
+using System.Threading;
+
 
 public class TimeTable : MonoBehaviour
 {
@@ -11,6 +13,8 @@ public class TimeTable : MonoBehaviour
 
     public void CreateTimeTable()
     {
+        //Thread.Sleep(1000);
+
         table = GetComponent<TableUI>();
         table.Columns = 3;
 
@@ -35,6 +39,7 @@ public class TimeTable : MonoBehaviour
             _stopInfo[i].arrivalTime += LevelInfo.instance.departureTime;
             _stopInfo[i].departureTime += LevelInfo.instance.departureTime;
 
+            //Debug.Log(_stopInfo[i].stopName);
             table.GetCell(i+1,0).text = _stopInfo[i].GetLocalizedText();
             table.GetCell(i+1,1).text = _stopInfo[i].arrivalTime.ToString();
             table.GetCell(i+1,2).text = _stopInfo[i].passing ? "Non-Stop" : _stopInfo[i].departureTime.ToString();

@@ -39,7 +39,7 @@ public class UnlockConformDisplay : MonoBehaviour
         if (_xp >= route.xpToUnlock)
         {
             conformText.text = 
-                string.Format($"{TXT("UnlockConform1")} {route.xpToUnlock.ToString()}XP {TXT("UnlockConform2")} {route.routeName} ?");//UnlockConform
+                string.Format($"{TXT("UnlockConform1")} {route.xpToUnlock.ToString()}XP {TXT("UnlockConform2")} {TXT(route.routeName)} ?");//UnlockConform
 
             yesButton.interactable = true;
             yesButton.onClick.RemoveAllListeners();
@@ -48,7 +48,7 @@ public class UnlockConformDisplay : MonoBehaviour
         }
         else
         {
-            conformText.text= string.Format( $"{TXT("UnlockXPnotEnough")} {route.routeName}");//UnlockXPnotEnough
+            conformText.text= string.Format( $"{TXT("UnlockXPnotEnough")} {TXT(route.routeName)}");//UnlockXPnotEnough
 
             yesButton.onClick.RemoveAllListeners();
             yesButton.interactable = false;
@@ -65,7 +65,7 @@ public class UnlockConformDisplay : MonoBehaviour
         if (_xp >= level.xpToUnlock)
         {
             conformText.text =
-                string.Format($"{TXT("UnlockConform1")} {level.xpToUnlock.ToString()}XP {TXT("UnlockConform2")} {level.levelName} ?");//UnlockConform
+                string.Format($"{TXT("UnlockConform1")} {level.xpToUnlock.ToString()}XP {TXT("UnlockConform2")} ?");//UnlockConform
             
 
             yesButton.interactable = true;
@@ -75,7 +75,7 @@ public class UnlockConformDisplay : MonoBehaviour
         }
         else
         {
-            conformText.text = string.Format($"{TXT("UnlockXPnotEnough")} {level.levelName}");//UnlockXPnotEnough
+            conformText.text = string.Format($"{TXT("UnlockXPnotEnough")}");//UnlockXPnotEnough
             yesButton.onClick.RemoveAllListeners();
             yesButton.interactable = false;
         }

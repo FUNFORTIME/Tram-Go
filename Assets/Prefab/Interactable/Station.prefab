@@ -1507,6 +1507,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 978420065812631299, guid: 9c9d175b818450f4392414b838915671, type: 3}
+      propertyPath: stopName
+      value: Station
+      objectReference: {fileID: 0}
+    - target: {fileID: 978420065812631299, guid: 9c9d175b818450f4392414b838915671, type: 3}
       propertyPath: arrSignal
       value: 
       objectReference: {fileID: 7218147559355943214}

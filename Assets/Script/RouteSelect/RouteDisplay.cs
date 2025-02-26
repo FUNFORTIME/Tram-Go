@@ -16,6 +16,8 @@ public class RouteDisplay : MonoBehaviour
     [SerializeField]private Sprite silverMedal;
     [SerializeField] private Sprite goldMedal;
 
+    [SerializeField] private GameObject routeNameHolder;
+
     private void Start()
     {
         GameData gameData = SaveManager.instance.gameData;
@@ -37,7 +39,7 @@ public class RouteDisplay : MonoBehaviour
 
     public void UpdateDisplay()
     {
-        routeText.text = route.routeName;
+        routeText.text = TextHelper.GetTextFromChild(routeNameHolder, name);
         unlockText.text = route.unlock ? "" : route.xpToUnlock + "XP";
 
         button.onClick.RemoveAllListeners();

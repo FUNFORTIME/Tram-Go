@@ -11,4 +11,9 @@ public class Route:ScriptableObject
     public int xpToUnlock;
     public string routeName;
     public List<Level> levelList;
+    [SerializeField] private GameObject routeNameHolder;
+    public string GetLocalizedText()
+    {
+        return TextHelper.GetTextFromChild(routeNameHolder, routeName);
+    }
 }

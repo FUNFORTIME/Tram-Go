@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using TMPro;
 using UnityEngine;
 
@@ -10,7 +11,11 @@ public class StartDisplay : MonoBehaviour
     [SerializeField]private SpeedLimitDisplay speedLimitDisplay;
     [SerializeField]private TimeTable timeTable;
 
-
+    private bool TableSet=false;
+    private void Awake()
+    {
+        //timeTable.CreateTimeTable();
+    }
     private void Start()
     {
         UI.instance.pause.ChangePause(false);
@@ -18,10 +23,13 @@ public class StartDisplay : MonoBehaviour
 
         Level level = LevelInfo.instance.level;
         signalInfoDisplay.SetSignal(SignalColor.yellow);
-        //speedLimitDisplay.SetText(level.signalSpeedLimit, true);
+        //speedLimitDisplay.SetText(level.signalSpeedLimit, true);  
 
-        //levelName.text = level.routeName +"\n"+ level.levelName;
+        //timeTable.CreateTimeTable();
+    }
 
-        timeTable.CreateTimeTable();
+    private void Update()
+    {
+        if(!TableSet) {timeTable.CreateTimeTable();TableSet = true;}
     }
 }

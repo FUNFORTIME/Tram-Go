@@ -23,7 +23,7 @@ public class LanguageManager : MonoBehaviour
     
     void Update()
     {
-        
+
     }
 
     public void SetLanguage(int type)
@@ -51,6 +51,14 @@ public class LanguageManager : MonoBehaviour
         }
     }
 
+    public void RefreshLanguageBox()
+    {
+        
+        foreach (Localization_SOURCE langSource in languageOb)
+        {
+            langSource.RefreshTextElementsAndKeys();
+        }
+    }
 
     public void LoadLanguage()
     {
@@ -72,6 +80,7 @@ public class LanguageManager : MonoBehaviour
             Debug.LogError("Language index file not found.");
         }
         SetLanguage(languageIndex);
+        RefreshLanguageBox();
     }
 
 }

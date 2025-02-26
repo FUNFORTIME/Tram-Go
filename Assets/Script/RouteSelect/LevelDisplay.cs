@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -17,7 +18,12 @@ public class LevelDisplay : MonoBehaviour
     [SerializeField] private Sprite bronzeMedal;
     [SerializeField] private Sprite silverMedal;
     [SerializeField] private Sprite goldMedal;
+    [SerializeField] private GameObject Holder;
 
+    private void Awake()
+    {
+        Holder=transform.parent.parent.Find("Message").gameObject;
+    }
     private void Start()
     {
         UpdateDisplay();
@@ -43,8 +49,8 @@ public class LevelDisplay : MonoBehaviour
         else if(level.highScore<level.goldScore) medalImage.sprite =silverMedal; 
         else medalImage.sprite = goldMedal;
        
-        highScoreText.text = "HighScore: "+ level.highScore.ToString() + "XP";
-        levelText.text=level.levelName;
+        highScoreText.text = $"{TXT("HighScore")} {level.highScore}XP";
+        levelText.text=GetlocalizedText();
     }
 
     public void Unlock()
@@ -58,5 +64,15 @@ public class LevelDisplay : MonoBehaviour
         UpdateDisplay();
     }
 
+    private string TXT(string name)
+    {
+        string ret = TextHelper.GetTextFromChild(Holder, name);
+        return ret;
+    }
 
+    public string GetlocalizedText()
+    {
+        //Debug.Log($"{TextHelper.GetTextFromChild(Holder, level.name)} {level.name}");
+        return TextHelper.GetTextFromChild(Holder, level.name);
+    }
 }

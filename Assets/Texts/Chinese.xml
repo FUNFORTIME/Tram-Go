@@ -100,10 +100,16 @@ Score=分数：
 >Routes
 TestRoute=测试线
 Route1=线路1
+Tutorial=教程
+BeiJingCentralAxisTourLine=北京中轴线旅游线路
+Basics=基础教程
+Sign=进阶教程
+Tutorial-Basics=基础教程
+Tutorial-Sign=进阶教程
 >Tutorial
 MoveAround=使用'A'和'D'键移动摄像头。按'S'键恢复默认视角。现在试一试。
 SpeedUp=屏幕左下角是动力手柄。按向下箭头(↓)或左箭头(←)施加动力，提升速度。
-StationWarn=此标志指示前方有车站。数字显示您与车站的距离。目标是在距离归零时准确停车。
+StationWarn=此标志指示前方有车站。数字显示您与车站的距离。括号中的数字为在该站停靠的最大允许误差。目标是在距离归零时准确停车。
 SpeedDown=接近车站时，请按向上箭头(↑)或右箭头(→)施加刹车，降低速度。若超过停车点，按'R'键倒车。
 G-Sensor=屏幕右上角显示四个指示器：速度表、时钟、载客量指示器和加速度传感器。G值过高会受到惩罚，因为这可能导致乘客跌倒。
 StationTutorial=车辆停稳后，按'O'键开启车门，让乘客上车。为防止车辆滑动，乘客上车时请保持最高强度的制动。

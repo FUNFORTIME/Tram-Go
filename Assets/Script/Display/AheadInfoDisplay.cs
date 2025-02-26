@@ -67,7 +67,7 @@ public class AheadInfoDisplay : MonoBehaviour
             case SignType.stop:
                 stopInfoDisplay.SetActive(true);
                 Stop _stopinfo = info.GetComponent<Stop>();
-                stopInfoDisplay.GetComponent<StopInfoDisplay>().SetText(_stopinfo.GetLocalizedText());
+                stopInfoDisplay.GetComponent<StopInfoDisplay>().SetText(_stopinfo);
                 break;
 
             case SignType.speedLimit:

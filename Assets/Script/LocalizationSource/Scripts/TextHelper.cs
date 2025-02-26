@@ -12,6 +12,7 @@ public static class TextHelper
     /// <returns>text of child</returns>
     public static string GetTextFromChild(GameObject parent, string childName)
     {
+
         if (parent == null)
         {
             StackTrace stackTrace = new StackTrace();
@@ -46,9 +47,10 @@ public static class TextHelper
             return textComponent.text.Trim();
         }
 
-        var textMeshProComponent = child.GetComponent<TMPro.TextMeshProUGUI>(); // TextMeshPro
+        var textMeshProComponent = child.GetComponent<TextMeshProUGUI>(); // TextMeshPro
         if (textMeshProComponent != null)
         {
+           // UnityEngine.Debug.LogWarning(textMeshProComponent.text.Trim());
             return textMeshProComponent.text.Trim();
         }
 

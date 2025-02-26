@@ -64,7 +64,7 @@ public class StopResultDisplay : MonoBehaviour
             delayText.text = DelayText(_delay);
 
             int _score = LerpXPCalculation(minDeviationXP, maxDeviationXP, _deviation, stop.maxAcceptDeviation) + LerpXPCalculation(minDelayXP, maxDelayXP, _delay, stop.maxAcceptDelay);
-            scoreText.text = $"{scoreText.text} {_score} XP";
+            scoreText.text = $"{_score} XP";
 
             _deviation += Time.deltaTime * (Time.time - _startTime + 0.2f) * (deviation - _deviation) * 0.5f;
             _delay += Time.deltaTime * (Time.time - _startTime + 0.2f) * (delay - _delay) * 0.5f;

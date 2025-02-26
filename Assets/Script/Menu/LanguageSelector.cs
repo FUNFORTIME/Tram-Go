@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,11 +12,15 @@ public class LanguageSelector : MonoBehaviour
 
     private void Start()
     {
-        switch (SaveManager.instance.gameData.language)
+        string path = "Assets/Texts/default.txt";
+        string content = File.ReadAllText(path);
+        int languageIndex;
+        int.TryParse(content, out languageIndex);
+        switch (languageIndex)
         {
-            case LanguageType.chinese: chinese.isOn = true; break;
-            case LanguageType.english: english.isOn = true; break;
-            case LanguageType.japanese: japanese.isOn = true; break;
+            case 0: chinese.isOn = true; break;
+            case 1: english.isOn = true; break;
+            case 2: japanese.isOn = true; break;
         }
     }
 

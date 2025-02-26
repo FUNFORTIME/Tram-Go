@@ -21665,7 +21665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3425036558332495650, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00067801017
+      value: 0.00022334715
       objectReference: {fileID: 0}
     - target: {fileID: 3908573532051375310, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
       propertyPath: m_AnchorMax.y
@@ -21729,6 +21729,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4220914684920314819, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348619885230901135, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348619885230901135, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4348619885230901135, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
+      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5126484393282410797, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
@@ -21811,6 +21823,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6059376888003322512, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
+      propertyPath: key
+      value: BeiJingCentralAxisTourLine
+      objectReference: {fileID: 0}
     - target: {fileID: 6072413257238514815, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
@@ -21834,6 +21850,10 @@ PrefabInstance:
     - target: {fileID: 6182613031336701265, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488651617397513807, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
+      propertyPath: m_Name
+      value: BeiJingCentralAxisTourLine
       objectReference: {fileID: 0}
     - target: {fileID: 6584808411807179469, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
       propertyPath: m_AnchorMax.x

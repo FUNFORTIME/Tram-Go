@@ -21069,7 +21069,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3425036558332495650, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000043894156
+      value: 0.000030060444
       objectReference: {fileID: 0}
     - target: {fileID: 3735981680261692580, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
       propertyPath: m_AnchorMax.y
@@ -21378,6 +21378,10 @@ PrefabInstance:
     - target: {fileID: 6286765184020345873, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6488651617397513807, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
+      propertyPath: m_Name
+      value: BeiJingCentralAxisTourLine
       objectReference: {fileID: 0}
     - target: {fileID: 6584808411807179469, guid: 22ad247c953ebef48ba7ab616e04b9f3, type: 3}
       propertyPath: m_AnchorMax.x

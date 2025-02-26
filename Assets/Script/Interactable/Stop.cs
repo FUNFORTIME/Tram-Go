@@ -18,7 +18,7 @@ public class Stop : SignParent
     public Signal depSignal;
     [SerializeField] private Signal arrSignal;
     [SerializeField] private Transform warnSign;
-    [SerializeField] private TextMeshPro stopText;
+    public TextMeshPro stopText;
 
     public Station station {  get; private set; }
 
@@ -26,15 +26,23 @@ public class Stop : SignParent
     {
         //pass
         station = GetComponentInParent<Station>();
-        SetStopName();
-        stopText.text = GetLocalizedText();
+        //SetStopName();
+        //stopText.text = GetLocalizedText();
+        //Debug.Log($"{stopName}:{stopText.text}");
     }
 
 
 
     private void Update()
     {
-        //Debug.Log($"stopname: {stopName}\ntext:{stopText.text}");
+        bool bug = true;
+        if (bug)
+        {
+            stopText.text = GetLocalizedText();
+            bug = false;
+        }
+       
+       //Debug.Log($"stopname: {stopName}\ntext:{stopText.text}");
     }
 
     private void Start()
@@ -51,7 +59,6 @@ public class Stop : SignParent
         warnSign.localPosition = new Vector3(-warnDistance, warnSign.localPosition.y);
 
         //transform.parent.name = stopName;
-        //stopText.text = stopName;
         
         if (arrSignal != null && depSignal != null)
         {
@@ -79,8 +86,12 @@ public class Stop : SignParent
 
     public string GetLocalizedText()
     {
-        
-        return transform.parent.GetComponent<Station>().GetStationName();
+        SetStopName();
+        //Debug.Log($"stopname: {stopName}\ntext:{transform.parent.GetComponent<Station>().GetStationName()}");
+        string ret= transform.parent.GetComponent<Station>().GetStationName();
+        //Debug.LogWarning(ret);
+        stopText.text = ret;
+        return ret;
     }
 
     private void SetStopName()

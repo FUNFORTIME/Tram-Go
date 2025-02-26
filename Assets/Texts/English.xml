@@ -100,10 +100,16 @@ Score=score:
 >Routes
 TestRoute=Test
 Route1=R1
+Tutorial=Tutorial
+BeiJingCentralAxisTourLine=BeiJing Central Axis Tour Line
+Basics=Basics
+Sign=Signs
+Tutorial-Basics=Basics
+Tutorial-Sign=Signs
 >Tutorial
 MoveAround=You can move the camera with 'A' and 'D' key. Use 'S' key to return to the default position. Try it now. 
 SpeedUp=The power handle locates at the bottom-left corner of the screen. Press down arrow(↓) or left arrow(←) to apply power and speed up.
-StationWarn=This Sign indicates a station ahead. The num below shows the distance between you and the station. Try to stop exactly when the distance become zero.
+StationWarn=This Sign indicates a station ahead. The number below shows the distance between you and the station. The number in brackets is the maximum deviation allowed to stop at the station. Try to stop exactly when the distance become zero.
 SpeedDown=You are close to the station. Press up arrow(↑) or right arrow(→) to apply brake and reduce speed when approaching. If you overrun the stop, press 'R' to reverse the direction. 
 G-Sensor=There are four indicator locates at the top-right corner, which are speed meter, clock, passenger rate indicator, and acceleration sensor. You will be punished if the G value is too high since passengers might fall over.
 StationTutorial=After you have stopped at the station, press 'O' to open the door and wait for passengers to get board. It is recommended to apply maximum brake when boarding to avoid unexpected rolling. 

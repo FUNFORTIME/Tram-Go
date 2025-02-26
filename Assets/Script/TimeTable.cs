@@ -4,16 +4,25 @@ using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using UnityEngine.UI.TableUI;
 using System.Threading;
+using LanguageLocalization;
+using TMPro;
 
 
 public class TimeTable : MonoBehaviour
 {
     [SerializeField] private Transform pasteParent;
+    [SerializeField] private GameObject TextHolder;
     private TableUI table;
 
     public void CreateTimeTable()
     {
-        //Thread.Sleep(1000);
+        Debug.Log(TextHolder);
+        foreach (Transform child in TextHolder.transform)
+        {
+            //Debug.Log("Child Name: " + child.name);
+            //Debug.Log(child.GetComponent<TextMeshProGUI>().text);
+        }
+
 
         table = GetComponent<TableUI>();
         table.Columns = 3;
@@ -29,9 +38,9 @@ public class TimeTable : MonoBehaviour
             _stopInfo.Add(_hit.collider.gameObject.GetComponent<Stop>());
         }
 
-        //table.GetCell(0,0).text = "Stop";
-        //table.GetCell(0,1).text = "Arr.";
-        //table.GetCell(0,2).text = "Dep.";
+        table.GetCell(0, 0).text = GetLocalizedText("Stop");
+        table.GetCell(0, 1).text = GetLocalizedText("Arr"); 
+        table.GetCell(0, 2).text = GetLocalizedText("Dep"); 
         table.Rows = _stopInfo.Count + 1;
 
         for (int i = 0; i < _stopInfo.Count; i++)
@@ -40,7 +49,9 @@ public class TimeTable : MonoBehaviour
             _stopInfo[i].departureTime += LevelInfo.instance.departureTime;
 
             //Debug.Log(_stopInfo[i].stopName);
-            table.GetCell(i+1,0).text = _stopInfo[i].GetLocalizedText();
+            table.GetCell(i+1,0).text = GetLocalizedText(_stopInfo[i].stopName);
+            //table.GetCell(i + 1, 0).text =_stopInfo[i].stopText.text;
+            //table.GetCell(i + 1, 0).text = "114514";
             table.GetCell(i+1,1).text = _stopInfo[i].arrivalTime.ToString();
             table.GetCell(i+1,2).text = _stopInfo[i].passing ? "Non-Stop" : _stopInfo[i].departureTime.ToString();
         }
@@ -48,4 +59,8 @@ public class TimeTable : MonoBehaviour
         Instantiate(gameObject, pasteParent).transform.localPosition = Vector3.zero;
     }
 
-}
+    private string GetLocalizedText(string name) {
+        return TextHelper.GetTextFromChild(TextHolder, name);
+    }
+
+    }

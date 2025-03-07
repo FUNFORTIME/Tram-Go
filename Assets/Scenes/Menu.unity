@@ -827,9 +827,9 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 231230406}
-        m_TargetAssemblyTypeName: LanguageManager, Assembly-CSharp
-        m_MethodName: SetLanguage
+      - m_Target: {fileID: 231230402}
+        m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
+        m_MethodName: SetLanguageType
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -961,9 +961,9 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 231230406}
-        m_TargetAssemblyTypeName: LanguageManager, Assembly-CSharp
-        m_MethodName: SetLanguage
+      - m_Target: {fileID: 231230402}
+        m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
+        m_MethodName: SetLanguageType
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1585,7 +1585,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   languageOb:
   - {fileID: 706696224}
-  path: 
 --- !u!1 &238772982
 GameObject:
   m_ObjectHideFlags: 0
@@ -17829,9 +17828,9 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 231230406}
-        m_TargetAssemblyTypeName: LanguageManager, Assembly-CSharp
-        m_MethodName: SetLanguage
+      - m_Target: {fileID: 231230402}
+        m_TargetAssemblyTypeName: SaveManager, Assembly-CSharp
+        m_MethodName: SetLanguageType
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

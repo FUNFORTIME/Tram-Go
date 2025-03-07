@@ -95,7 +95,7 @@ public class SaveManager:MonoBehaviour
     public void SetLanguageType(int language)
     {
         gameData.language = (LanguageType)language;
-        languageManager.SetLanguage(language);
+        languageManager.SetLanguageOb(language);
         SaveGame();
     }
     public void SetGameMode(int gameMode)

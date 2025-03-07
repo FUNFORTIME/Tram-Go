@@ -10,40 +10,22 @@ public class LanguageManager : MonoBehaviour
     /// use SetLanguage(int); to set language,default is 0.
     /// </summary>
     [SerializeField] private List<Localization_SOURCE> languageOb;
-    [SerializeField] private string path;
 
     private int languageIndex;
 
     void Start()
     {
-        if (path == null || path == "") path = "Assets/Texts/default.txt";
         LoadLanguage();
     }
 
     
     void Update()
     {
-
+        //Debug.Log(languageIndex);
     }
 
-    public void SetLanguage(int type)
+    public void SetLanguageOb(int type)
     {
-        File.WriteAllText(path, $"{type}");
-
-        if (languageOb == null)
-        {
-            Debug.LogError("Language list is null.");
-            return;
-        }
-
-        
-        if (type < 0 || type >= 3)
-        {
-            Debug.LogError("Invalid language type.");
-            return;
-        }
-
-        
         foreach (Localization_SOURCE langSource in languageOb)
         {
             langSource.LoadLanguage(type);
@@ -62,24 +44,9 @@ public class LanguageManager : MonoBehaviour
 
     public void LoadLanguage()
     {
+        languageIndex = (int)SaveManager.instance.gameData.language;
 
-        if (File.Exists(path))
-        {
-            string content = File.ReadAllText(path);
-            if (int.TryParse(content, out languageIndex))
-            {
-                //Debug.Log("Language index loaded: " + languageIndex);
-            }
-            else
-            {
-                Debug.LogError("Failed to parse language index from file.");
-            }
-        }
-        else
-        {
-            Debug.LogError("Language index file not found.");
-        }
-        SetLanguage(languageIndex);
+        SetLanguageOb(languageIndex);
         RefreshLanguageBox();
     }
 
